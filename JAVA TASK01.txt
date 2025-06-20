@@ -1,0 +1,351 @@
+Build a Java program to input and manage student grades.
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    String name;
+    double grade;
+
+    Student(String name, double grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+}
+
+public class GradeManager {
+
+    static ArrayList<Student> students = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            showMenu();
+            choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1 -> addStudent();
+                case 2 -> displayStudents();
+                case 3 -> showAverageGrade();
+                case 4 -> System.out.println("Exiting program. Goodbye!");
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 4);
+    }
+
+    static void showMenu() {
+        System.out.println("\n--- Student Grade Manager ---");
+        System.out.println("1. Add Student and Grade");
+        System.out.println("2. Display All Students and Grades");
+        System.out.println("3. Show Average Grade");
+        System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    static void addStudent() {
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter grade (0-100): ");
+        double grade = scanner.nextDouble();
+
+        if (grade < 0 || grade > 100) {
+            System.out.println("Invalid grade. Must be between 0 and 100.");
+        } else {
+            students.add(new Student(name, grade));
+            System.out.println("Student added successfully.");
+        }
+    }
+
+    static void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+            return;
+        }
+
+        System.out.println("\nList of Students and Grades:");
+        for (Student s : students) {
+            System.out.printf("Name: %-20s Grade: %.2f\n", s.name, s.grade);
+        }
+    }
+
+    static void showAverageGrade() {
+        if (students.isEmpty()) {
+            System.out.println("No students to calculate average.");
+            return;
+        }
+
+        double total = 0;
+        for (Student s : students) {
+            total += s.grade;
+        }
+
+        double average = total / students.size();
+        System.out.printf("Average Grade: %.2f\n", average);
+    }
+}
+
+
+
+
+2) Calculate average, highest, and lowest scores.
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    String name;
+    double grade;
+
+    Student(String name, double grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+}
+
+public class GradeManager {
+
+    static ArrayList<Student> students = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            showMenu();
+            choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1 -> addStudent();
+                case 2 -> displayStudents();
+                case 3 -> showStatistics();
+                case 4 -> System.out.println("Exiting program. Goodbye!");
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 4);
+    }
+
+    static void showMenu() {
+        System.out.println("\n--- Student Grade Manager ---");
+        System.out.println("1. Add Student and Grade");
+        System.out.println("2. Display All Students and Grades");
+        System.out.println("3. Show Statistics (Average, Highest, Lowest)");
+        System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    static void addStudent() {
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter grade (0-100): ");
+        double grade = scanner.nextDouble();
+
+        if (grade < 0 || grade > 100) {
+            System.out.println("Invalid grade. Must be between 0 and 100.");
+        } else {
+            students.add(new Student(name, grade));
+            System.out.println("Student added successfully.");
+        }
+    }
+
+    static void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+            return;
+        }
+
+        System.out.println("\nList of Students and Grades:");
+        for (Student s : students) {
+            System.out.printf("Name: %-20s Grade: %.2f\n", s.name, s.grade);
+        }
+    }
+
+    static void showStatistics() {
+        if (students.isEmpty()) {
+            System.out.println("No students to calculate statistics.");
+            return;
+        }
+
+        double total = 0;
+        double highest = Double.MIN_VALUE;
+        double lowest = Double.MAX_VALUE;
+        String highestStudent = "";
+        String lowestStudent = "";
+
+        for (Student s : students) {
+            total += s.grade;
+
+            if (s.grade > highest) {
+                highest = s.grade;
+                highestStudent = s.name;
+            }
+
+            if (s.grade < lowest) {
+                lowest = s.grade;
+                lowestStudent = s.name;
+            }
+        }
+
+        double average = total / students.size();
+
+        System.out.printf("\nStatistics:\n");
+        System.out.printf("Average Grade: %.2f\n", average);
+        System.out.printf("Highest Grade: %.2f (by %s)\n", highest, highestStudent);
+        System.out.printf("Lowest Grade: %.2f (by %s)\n", lowest, lowestStudent);
+    }
+}
+
+
+3)Use arrays or ArrayLists to store and manage data.
+
+Student[] students = new Student[100]; // Max 100 students
+int count = 0;
+
+// Add new student
+students[count++] = new Student("Alice", 95);
+
+// Loop through students
+for (int i = 0; i < count; i++) {
+    System.out.println(students[i].name + ": " + students[i].grade);
+}
+
+4)Display a summary report of all students.
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Student class
+class Student {
+    String name;
+    int rollNumber;
+    double marks;
+    String grade;
+
+    public Student(String name, int rollNumber, double marks) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.marks = marks;
+        this.grade = calculateGrade(marks);
+    }
+
+    // Method to calculate grade based on marks
+    private String calculateGrade(double marks) {
+        if (marks >= 90) return "A+";
+        else if (marks >= 80) return "A";
+        else if (marks >= 70) return "B";
+        else if (marks >= 60) return "C";
+        else if (marks >= 50) return "D";
+        else return "F";
+    }
+
+    // Method to return formatted report line
+    public String getReportLine() {
+        return String.format("%-10s %-10d %-10.2f %-5s", name, rollNumber, marks, grade);
+    }
+}
+
+public class StudentReport {
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+
+        // Add sample student data
+        students.add(new Student("Alice", 101, 92.5));
+        students.add(new Student("Bob", 102, 75.0));
+        students.add(new Student("Charlie", 103, 58.0));
+        students.add(new Student("Diana", 104, 83.2));
+
+        // Print header
+        System.out.println("Student Summary Report");
+        System.out.println("----------------------------");
+        System.out.printf("%-10s %-10s %-10s %-5s\n", "Name", "Roll No", "Marks", "Grade");
+        System.out.println("--------------------------------------------");
+
+        // Print each student's report line
+        for (Student s : students) {
+            System.out.println(s.getReportLine());
+        }
+    }
+}
+
+
+5)Make the interface console-based or GUI-based as desired.
+
+import java.util.*;
+
+class Student {
+    String name;
+    int rollNumber;
+    double marks;
+    String grade;
+
+    public Student(String name, int rollNumber, double marks) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.marks = marks;
+        this.grade = calculateGrade(marks);
+    }
+
+    private String calculateGrade(double marks) {
+        if (marks >= 90) return "A+";
+        else if (marks >= 80) return "A";
+        else if (marks >= 70) return "B";
+        else if (marks >= 60) return "C";
+        else if (marks >= 50) return "D";
+        else return "F";
+    }
+
+    public String getReportLine() {
+        return String.format("%-10s %-10d %-10.2f %-5s", name, rollNumber, marks, grade);
+    }
+}
+
+public class StudentConsoleApp {
+    private static final List<Student> students = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n=== Student Management System ===");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display Summary Report");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1 -> addStudent();
+                case 2 -> displayReport();
+                case 3 -> {
+                    System.out.println("Exiting program.");
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+
+    private static void addStudent() {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter roll number: ");
+        int roll = scanner.nextInt();
+        System.out.print("Enter marks: ");
+        double marks = scanner.nextDouble();
+        students.add(new Student(name, roll, marks));
+        System.out.println("Student added successfully!");
+    }
+
+    private static void displayReport() {
+        System.out.println("\n--- Student Summary Report ---");
+        System.out.printf("%-10s %-10s %-10s %-5s\n", "Name", "Roll No", "Marks", "Grade");
+        System.out.println("-------------------------------------------");
+        for (Student s : students) {
+            System.out.println(s.getReportLine());
+        }
+    }
+}
+
